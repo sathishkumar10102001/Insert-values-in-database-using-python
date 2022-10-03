@@ -1,5 +1,5 @@
 import mysql.connector
-x=int(input('enter your Choice \n 1.Student result \n 2.Student Details\n 3.student_attendence '))
+x=int(input('enter your Choice \n 1.Student result \n 2.Student Details\n 3.student_attendence \n 4.student sports'))
 y=int(input('select option \n 1.insert \n 2.delete \n 3.update'))
 
 if(x==1):
@@ -165,4 +165,53 @@ if(x==3):
         print('student result ')
 
 #***************************************************************************************
+
+if(x==4):
+    if(y==1):
+     reg_no=input('enter the reg_no  :')
+     name=input('enter the name :')
+     games=input('enter the games :')
+     game_staff_name=input('enter the game_staff_name :')
+     myconn=mysql.connector.connect(host='localhost',user='root',passwd='',database='student')
+     cur=myconn.cursor()
+     sql_insert='insert into student_sports(reg_no,name,games,game_staff_name) values(%s,%s,%s,%s)'
+     val=(reg_no,name,games,game_staff_name)
+     try:
+         cur.execute(sql_insert,val)
+         myconn.commit()
+     except:
+        myconn.rollback()
+     print(cur.rowcount,'record inserted successfully!!')
+     myconn.close()
+     print('student result ')
+
+    if(y==2):   
+      myconn=mysql.connector.connect(host='localhost',user='root',passwd='',database='student')
+      cur=myconn.cursor()
+      sql_delete="""delete from student_sports where %s """
+      try:
+         cur.execute(sql_delete)
+         myconn.commit()
+      except:
+         myconn.rollback()
+      print(cur.rowcount,'record deleted successfully!!')
+      myconn.close()
+      print('student result ')
+      
+    if(y==3):
+        myconn=mysql.connector.connect(host='localhost',user='root',passwd='',database='student')
+        cur=myconn.cursor()
+        sql_update="""update student_sports set %s where %s"""
+
+        try:
+          cur.execute(sql_update)
+          myconn.commit()
+        except:
+          myconn.rollback()
+        print(cur.rowcount,'record update successfully!!')
+        myconn.close()
+        print('student result ')
+
+#***************************************************************************************
+
 
